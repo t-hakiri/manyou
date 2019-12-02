@@ -1,0 +1,14 @@
+<h1>タスク</h1>
+
+<p>
+  <strong>タイトル:</strong>
+  <%= @task.title %>
+</p>
+
+<p>
+  <strong>詳細:</strong>
+  <%= @task.content %>
+</p>
+
+<%= link_to '設定変更', edit_task_path(@task), class: 'btn btn-success' %> |
+<%= link_to '戻る', tasks_path, class: 'btn btn-warning' %> 

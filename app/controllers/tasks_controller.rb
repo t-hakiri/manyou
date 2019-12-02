@@ -29,7 +29,7 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      redirect_to @task, notice: '情報の編集が完了しました' 
+      redirect_to tasks_path, notice: '情報の編集が完了しました' 
     else
       render :edit
     end
@@ -47,6 +47,6 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:name, :content )
+    params.require(:task).permit(:title, :content )
   end
 end
