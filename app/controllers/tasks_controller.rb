@@ -14,6 +14,8 @@ class TasksController < ApplicationController
       @tasks = Task.all.order(deadline: "desc")
     elsif params[:task].present?
       @tasks = Task.search(params[:task][:title])
+    elsif params[:sort_priority] == "true"
+      @tasks = Task.all.order(priority: "desc")
     end
   end
 
@@ -52,6 +54,6 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:title, :content, :deadline, :deadline, :status )
+    params.require(:task).permit(:title, :content, :deadline, :priority, :status )
   end
 end

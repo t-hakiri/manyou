@@ -43,6 +43,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         expect(task_list[1]).to have_content 'task'
       end
     end
+    context '優先順位でソートするを押した場合' do
   end
 
   describe 'タスク登録画面' do

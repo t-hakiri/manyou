@@ -32,6 +32,14 @@
     <li><%= form.select :status, { 未着手: "未着手", 着手中: "着手中", 完了: "完了" } %>
   </ul>
 
+   <ul class="field">
+    <li><%= form.label :priority %></li>
+    <li><%= form.select :priority, Task.priorities.keys %>
+
+
+       <%#= select :priority, :name, Task.priority.keys.to_a, include_blank: true %>
+  </ul>
+
   <ul class="actions">
     <li><%= form.submit %></li>
   </ul>
