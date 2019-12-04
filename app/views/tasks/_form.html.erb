@@ -27,8 +27,12 @@
     <li><%= form.text_field :deadline %></li>
   </ul>
 
+  <ul class="field">
+    <li><%= form.label :status %></li>
+    <li><%= form.select :status, { 未着手: "未着手", 着手中: "着手中", 完了: "完了" } %>
+  </ul>
+
   <ul class="actions">
     <li><%= form.submit %></li>
   </ul>
 <% end %>
-</div>
