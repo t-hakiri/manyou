@@ -47,12 +47,23 @@ RSpec.describe 'タスク管理機能', type: :system do
     context '優先順位でソートするを押した場合' do
       it 'タスクが優先順位の降順で並んでいること' do
         visit tasks_path
-        click_on '終了期限でソートする'
+        click_on '優先順位でソートする'
         sleep 1
 
         task_list = all('#task_row') # タスク一覧を配列として取得するため、View側でidを振っておく
         expect(task_list[0]).to have_content 'second_task'
         expect(task_list[1]).to have_content 'task'
+      end
+    end
+    context '任意の文字列で検索した時' do
+      it '任意の文字列を含むタスクのみが表示されていること' do
+        visit tasks_path
+        fill_in "タイトル検索", with: 'second'
+        click_button '検索する'
+        sleep 1
+
+        task_list = all('#task_row') # タスク一覧を配列として取得するため、View側でidを振っておく
+        expect(task_list[0]).to have_content 'second_task'
       end
     end
   end
