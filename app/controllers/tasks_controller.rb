@@ -9,13 +9,14 @@ class TasksController < ApplicationController
   end
 
   def index
-    @tasks = Task.all.order(created_at: :desc)
+    @tasks = Task.all.order(created_at: :desc).page(params[:page]).per(5)
+    #@posts = Post.page(params[:page]).per(20)
     if params[:sort_expired] == "true"
-      @tasks = Task.all.order(deadline: "desc")
+      @tasks = Task.all.order(deadline: "desc").page(params[:page]).per(5)
     elsif params[:task].present?
-      @tasks = Task.search(params[:task][:title])
+      @tasks = Task.search(params[:task][:title]).page(params[:page]).per(5)
     elsif params[:sort_priority] == "true"
-      @tasks = Task.all.order(priority: "desc")
+      @tasks = Task.all.order(priority: "desc").page(params[:page]).per(5)
     end
   end
 
