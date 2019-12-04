@@ -7,6 +7,8 @@ FactoryBot.define do
     title { 'task' }
     content { 'task' }
     deadline { Date.today }
+    status { '完成' }
+    priority { '低' }
   end
 
   # 作成するテストデータの名前を「second_task」とします
@@ -15,5 +17,7 @@ FactoryBot.define do
     title { 'second_task' }
     content { 'second_task' }
     deadline { Date.tomorrow }
+    status { '完成' }
+    priority { '高' }
   end
 end
