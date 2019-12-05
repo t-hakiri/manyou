@@ -11,7 +11,6 @@
     </div>
   <% end %>
 
-
   <ul class="field">
     <li><%= form.label :title %></li>
     <li><%= form.text_field :title %></li>
@@ -24,7 +23,7 @@
 
   <ul class="field">
     <li><%= form.label :deadline %></li>
-    <li><%= form.text_field :deadline %></li>
+    <li><%= form.date_select :deadline %></li>
   </ul>
 
   <ul class="field">
@@ -35,7 +34,6 @@
    <ul class="field">
     <li><%= form.label :priority %></li>
     <li><%= form.select :priority, Task.priorities.keys %>
-
 
        <%#= select :priority, :name, Task.priority.keys.to_a, include_blank: true %>
   </ul>
