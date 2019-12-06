@@ -7,7 +7,7 @@ FactoryBot.define do
     title { 'task' }
     content { 'task' }
     deadline { Date.today }
-    status { '完成' }
+    status { '未着手' }
     priority { '低' }
   end
 
@@ -17,7 +17,7 @@ FactoryBot.define do
     title { 'second_task' }
     content { 'second_task' }
     deadline { Date.tomorrow }
-    status { '完成' }
+    status { '完了' }
     priority { '高' }
   end
 end

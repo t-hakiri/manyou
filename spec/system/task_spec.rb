@@ -66,6 +66,16 @@ RSpec.describe 'タスク管理機能', type: :system do
         expect(task_list[0]).to have_content 'second_task'
       end
     end
+    context 'ステータスの検索した時' do
+      it '選択したステータスのタスクのみが表示されていること' do
+        visit tasks_path
+        select '完了', from: 'ステータス検索'
+        sleep 1
+
+        task_list = all('#task_row') # タスク一覧を配列として取得するため、View側でidを振っておく
+        expect(task_list[0]).to have_content 'second_task'
+      end
+    end
   end
 
   describe 'タスク登録画面' do
@@ -80,7 +90,12 @@ RSpec.describe 'タスク管理機能', type: :system do
         fill_in 'タイトル', with: 'aaa'      
         # 3.ここに「タスク詳細」というラベル名の入力欄に内容をfill_in（入力）する処理を書く
         fill_in '内容', with: 'bbb'
-        fill_in '終了期限', with: '2019/11/11'
+        select '2017', from: 'task_deadline_1i'
+        select '11', from: 'task_deadline_2i'
+        select '3', from: 'task_deadline_3i'
+        select '完了', from: 'task_status'
+        select '中', from: 'task_priority'
+        sleep 1
         # 「登録する」というvalue（表記文字）のあるボタンをclick_onする（クリックする）
         # 4.「登録する」というvalue（表記文字）のあるボタンをclick_onする（クリックする）する処理を書く
         click_button '登録する'
