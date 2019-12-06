@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  resources :users, only: [:new, :create, :show]
-  root to: 'tasks#index'
+  root to: 'tasks#toppage'
+  resources :users
   resources :sessions, only: %w!new create destroy!
   
   resources :tasks 

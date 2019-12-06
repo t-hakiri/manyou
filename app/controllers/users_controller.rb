@@ -1,6 +1,14 @@
 class UsersController < ApplicationController
+  before_action :not_user_create, only: [:new]
+
   def new
     @user = User.new
+  end
+
+  def not_user_create
+    if logged_in?
+      redirect_to tasks_path, notice: '新規登録する場合はログアウトしてください。'
+    end
   end
 
   def create

@@ -13,7 +13,7 @@ class Task < ApplicationRecord
     低: 2, 
   }
 
-  # def self.search(search_params) #self.でクラスメソッドとしている
+  # def self.search(search_params)
   #   Task.where(['title LIKE ?', "%#{search_params}%"])
   # end
 

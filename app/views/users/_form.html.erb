@@ -1,4 +1,4 @@
-<%= form_with(model: user, local: true) do |form| %>
+<%= form_with(model: user, local: true ) do |form| %>
   <div class="errors">
     <% if user.errors.any? %>
       <div id="error_explanation">
@@ -13,33 +13,24 @@
     <% end %>
 
   <ul class="field">
-    <li><%= form.label :name %></li>
+    <li><%= form.label t('view.name') %></li>
     <li><%= form.text_field :name %></li>
   </ul>
 
   <ul class="field">
-    <li><%= form.label :email %></li>
+    <li><%= form.label t('view.email') %></li>
     <li><%= form.text_field :email %></li>
   </ul>
 
   <ul class="field">
-    <li><%= form.label :password %></li>
+    <li><%= form.label t('view.password') %></li>
     <li><%= form.password_field :password %></li>
   </ul>
 
   <ul class="field">
-    <li><%= form.label :password_confirmation %></li>
+    <li><%= form.label t('view.password_confirmation') %></li>
     <li><%= form.password_field :password_confirmation %></li>
   </ul>
-
-  <ul class="field">
-    <li><%= form.file_field :image %></li>
-  </ul>
-    
-  
-  
-  
-
 
   <ul class="actions">
     <li><%= form.submit %></li>
