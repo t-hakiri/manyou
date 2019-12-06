@@ -32,6 +32,50 @@ RSpec.describe 'タスク管理機能', type: :system do
         expect(task_list[1]).to have_content 'task'
       end
     end
+
+    context '終了期限でソートするを押した場合' do
+      it 'タスクが終了期限の降順で並んでいること' do 
+        visit tasks_path
+        click_on '終了期限でソートする'
+        sleep 1
+
+        task_list = all('#task_row') # タスク一覧を配列として取得するため、View側でidを振っておく
+        expect(task_list[0]).to have_content 'second_task'
+        expect(task_list[1]).to have_content 'task'
+      end
+    end
+    context '優先順位でソートするを押した場合' do
+      it 'タスクが優先順位の降順で並んでいること' do
+        visit tasks_path
+        click_on '優先順位でソートする'
+        sleep 1
+
+        task_list = all('#task_row') # タスク一覧を配列として取得するため、View側でidを振っておく
+        expect(task_list[0]).to have_content 'second_task'
+        expect(task_list[1]).to have_content 'task'
+      end
+    end
+    context '任意の文字列で検索した時' do
+      it '任意の文字列を含むタスクのみが表示されていること' do
+        visit tasks_path
+        fill_in "タイトル検索", with: 'second'
+        click_button '検索する'
+        sleep 1
+
+        task_list = all('#task_row') # タスク一覧を配列として取得するため、View側でidを振っておく
+        expect(task_list[0]).to have_content 'second_task'
+      end
+    end
+    context 'ステータスの検索した時' do
+      it '選択したステータスのタスクのみが表示されていること' do
+        visit tasks_path
+        select '完了', from: 'ステータス検索'
+        sleep 1
+
+        task_list = all('#task_row') # タスク一覧を配列として取得するため、View側でidを振っておく
+        expect(task_list[0]).to have_content 'second_task'
+      end
+    end
   end
 
   describe 'タスク登録画面' do
@@ -43,9 +87,15 @@ RSpec.describe 'タスク管理機能', type: :system do
         # 「タスク名」というラベル名の入力欄と、「タスク詳細」というラベル名の入力欄に
         # タスクのタイトルと内容をそれぞれfill_in（入力）する
         # 2.ここに「タスク名」というラベル名の入力欄に内容をfill_in（入力）する処理を書く
-        fill_in 'Title', with: 'aaa'      
+        fill_in 'タイトル', with: 'aaa'      
         # 3.ここに「タスク詳細」というラベル名の入力欄に内容をfill_in（入力）する処理を書く
-        fill_in 'Content', with: 'bbb'
+        fill_in '内容', with: 'bbb'
+        select '2017', from: 'task_deadline_1i'
+        select '11', from: 'task_deadline_2i'
+        select '3', from: 'task_deadline_3i'
+        select '完了', from: 'task_status'
+        select '中', from: 'task_priority'
+        sleep 1
         # 「登録する」というvalue（表記文字）のあるボタンをclick_onする（クリックする）
         # 4.「登録する」というvalue（表記文字）のあるボタンをclick_onする（クリックする）する処理を書く
         click_button '登録する'
