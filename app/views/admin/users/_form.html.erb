@@ -1,4 +1,4 @@
-<%= form_with(model: user, local: true ) do |form| %>
+<%= form_with(model: user, local: true, url: admin_user_path) do |form| %>
   <div class="errors">
     <% if user.errors.any? %>
       <div id="error_explanation">
@@ -30,6 +30,11 @@
   <ul class="field">
     <li><%= form.label t('view.password_confirmation') %></li>
     <li><%= form.password_field :password_confirmation %></li>
+  </ul>
+
+  <ul class="field">
+    <li><%= form.label t('view.admin') %></li>
+    <li><%= form.select :admin, { true: "true", false: "false" } %></li>
   </ul>
 
   <ul class="actions">

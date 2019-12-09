@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root to: 'tasks#toppage'
   resources :users
+  
   namespace :admin do
     resources :users
   end

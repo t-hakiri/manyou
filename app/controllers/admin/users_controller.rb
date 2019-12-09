@@ -1,7 +1,7 @@
 class Admin::UsersController < ApplicationController
   before_action :login?
   before_action :not_admin
-  before_action :set_user, only: [:destroy]
+  before_action :set_user, only: [:destroy, :edit, :update]
 
   def new
   end
@@ -12,12 +12,12 @@ class Admin::UsersController < ApplicationController
 
   def destroy
     @user.destroy
-      redirect_to root_path, notice: 'ユーザーを削除しました' 
+      redirect_to admin_users_path, notice: 'ユーザーを削除しました' 
   end
 
   def update
     if @user.update(user_params)
-     redirect_to @user, notice: 'ユーザー情報を更新しました'
+     redirect_to admin_users_path, notice: 'ユーザー情報を更新しました'
     else
       render :edit 
     end
@@ -41,4 +41,16 @@ class Admin::UsersController < ApplicationController
   def set_user
     @user = User.find(params[:id])
   end
+
+  private
+  def user_params
+    params.require(:user).permit(:name, :email, :password,
+                                 :password_confirmation, :admin)
+  end
 end
+
+
+
+
+
+
