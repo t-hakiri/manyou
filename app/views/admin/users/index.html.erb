@@ -1,0 +1,7 @@
+<h1>管理画面のユーザ一覧</h1>
+
+
+<% @users.each do |user| %>
+  <%= user.id %>:<%= user.name %>
+  <br>
+<% end %>

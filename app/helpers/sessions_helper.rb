@@ -6,4 +6,9 @@ module SessionsHelper
   def logged_in?
     current_user.present?
   end
+
+   # 渡されたユーザーでログインする
+  def log_in(user)
+    session[:user_id] = user.id
+  end
 end
