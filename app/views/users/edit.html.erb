@@ -1,0 +1,4 @@
+<h1><%= t('view.edit')%>画面</h1>
+
+<%= render 'form', user: @user %>
+<%= link_to 'Back', user_path(@user), class: 'btn btn_default' %>

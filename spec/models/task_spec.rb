@@ -4,6 +4,7 @@ RSpec.describe 'タスク管理機能', type: :model do
   before do
     @user = FactoryBot.create(:user)
     @user2 = FactoryBot.create(:user2)
+    # binding.pry
   end
 
   it 'titleが空ならバリデーションが通らない' do

@@ -1,9 +1,10 @@
 class Admin::UsersController < ApplicationController
   before_action :login?
   before_action :not_admin
-  before_action :set_user, only: [:destroy, :edit, :update]
+  before_action :set_user, only: [:destroy, :edit, :update, :show]
 
   def new
+    @user = User.new
   end
 
   def index
@@ -24,6 +25,19 @@ class Admin::UsersController < ApplicationController
   end
 
   def edit
+  end
+
+  def show
+    @tasks = Task.all
+  end
+
+  def create
+    @user = User.new(user_params)
+    if @user.save
+      redirect_to admin_users_path, notice: 'ユーザーを新規作成しました。'
+    else
+      render 'new'
+    end
   end
 
   private
