@@ -17,8 +17,11 @@ class Admin::UsersController < ApplicationController
   end
 
   def update
-    if @user.update(user_params)
-     redirect_to admin_users_path, notice: 'ユーザー情報を更新しました'
+    @users = User.all
+    if params[:admin_false] == 'true' && User.where(admin: true).count == 1
+      redirect_to admin_users_path, notice: '管理ユーザが一人しかいないので消せません。'
+    elsif @user.update(user_params)
+      redirect_to admin_users_path, notice: 'ユーザー情報を更新しました'
     else
       render :edit 
     end
@@ -67,4 +70,16 @@ end
 
 
 
+  # def index
+  #   @tasks = Task.all.sorted.page(params[:page]).per(5)
+  #   if params[:sort_expired] == "true"
+  #     @tasks = Task.all.deadline_sort.page(params[:page]).per(5)
+  #   elsif params[:task].present?
+  #     @tasks = Task.title_search(params[:task][:title_search]).page(params[:page]).per(5)
+  #     if params[:task][:status_search].present?
+  #       @tasks = @tasks.status_search(params[:task][:status_search]).page(params[:page]).per(5)
+  #     end
+  #   elsif params[:sort_priority] == "true"
+  #     @tasks = Task.all.sort_priority.page(params[:page]).per(5)
+  #   en
 
