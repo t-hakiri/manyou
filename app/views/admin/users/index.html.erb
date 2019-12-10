@@ -20,8 +20,11 @@
         <td><%= link_to 'Show', user %></td>
         <td><%= link_to 'Edit', edit_admin_user_path(user) %></td>
         <td><%= link_to 'Destroy', admin_user_path(user.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <td><%= link_to '権限付与', admin_user_path(user, user: {admin: true}), method: :patch,data: { confirm: '管理者権限を付与しますか?' } %></td>
-        <%#= link_to "リンクです。", kobito_path, user_id: @user.id, user_name: @user.name %>
+        <% if user.try(:admin?) %>
+          <td><%= link_to '権限削除', admin_user_path(user, user: {admin: false}), method: :patch,data: { confirm: '管理者権限を付与しますか?' } %></td>
+        <% elsif %>
+          <td><%= link_to '権限付与', admin_user_path(user, user: {admin: true}), method: :patch,data: { confirm: '管理者権限を削除しますか?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

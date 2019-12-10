@@ -5,8 +5,17 @@ RSpec.describe 'タスク管理機能', type: :system do
     # 「タスク一覧画面」や「タスク詳細画面」などそれぞれのテストケースで、before内のコードが実行される
     # 各テストで使用するタスクを1件作成する
     # 作成したタスクオブジェクトを各テストケースで呼び出せるようにインスタンス変数に代入
-    @task = FactoryBot.create(:task)
-    @second_task = FactoryBot.create(:second_task)
+    @user = FactoryBot.create(:user)
+    @user2 = FactoryBot.create(:user2)
+    @task = FactoryBot.create(:task, user_id: @user.id )
+    @task3 = FactoryBot.create(:task3, user_id: @user.id )
+    @second_task = FactoryBot.create(:second_task, user_id: @user2.id )
+
+    visit new_session_path
+
+    fill_in 'session_email', with: 'test7@aa.aa'
+    fill_in 'session_password', with: 'testtesttest'  
+    click_on 'Log in'
   end
   describe 'タスク一覧画面' do
     context 'タスクを作成した場合' do
@@ -28,7 +37,7 @@ RSpec.describe 'タスク管理機能', type: :system do
 
         visit tasks_path 
         task_list = all('#task_row') # タスク一覧を配列として取得するため、View側でidを振っておく
-        expect(task_list[0]).to have_content 'second_task'
+        expect(task_list[0]).to have_content 'task3'
         expect(task_list[1]).to have_content 'task'
       end
     end
@@ -40,7 +49,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         sleep 1
 
         task_list = all('#task_row') # タスク一覧を配列として取得するため、View側でidを振っておく
-        expect(task_list[0]).to have_content 'second_task'
+        expect(task_list[0]).to have_content 'task3'
         expect(task_list[1]).to have_content 'task'
       end
     end
@@ -51,19 +60,19 @@ RSpec.describe 'タスク管理機能', type: :system do
         sleep 1
 
         task_list = all('#task_row') # タスク一覧を配列として取得するため、View側でidを振っておく
-        expect(task_list[0]).to have_content 'second_task'
+        expect(task_list[0]).to have_content 'task3'
         expect(task_list[1]).to have_content 'task'
       end
     end
     context '任意の文字列で検索した時' do
       it '任意の文字列を含むタスクのみが表示されていること' do
         visit tasks_path
-        fill_in "タイトル検索", with: 'second'
+        fill_in "タイトル検索", with: '3'
         click_button '検索する'
         sleep 1
 
         task_list = all('#task_row') # タスク一覧を配列として取得するため、View側でidを振っておく
-        expect(task_list[0]).to have_content 'second_task'
+        expect(task_list[0]).to have_content 'task3'
       end
     end
     context 'ステータスの検索した時' do
@@ -73,7 +82,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         sleep 1
 
         task_list = all('#task_row') # タスク一覧を配列として取得するため、View側でidを振っておく
-        expect(task_list[0]).to have_content 'second_task'
+        expect(task_list[0]).to have_content 'task3'
       end
     end
   end
@@ -111,7 +120,6 @@ RSpec.describe 'タスク管理機能', type: :system do
   describe 'タスク詳細画面' do
     context '任意のタスク詳細画面に遷移した場合' do
       it '該当タスクの内容が表示されたページに遷移すること' do
-        @task = FactoryBot.create(:task, title: 'task')
         visit task_path(@task)
         expect(page).to have_content @task.title
         expect(page).to have_content @task.content

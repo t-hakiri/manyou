@@ -1,44 +1,48 @@
 require 'rails_helper'
 
 RSpec.describe 'タスク管理機能', type: :model do
+  before do
+    @user = FactoryBot.create(:user)
+    @user2 = FactoryBot.create(:user2)
+  end
 
   it 'titleが空ならバリデーションが通らない' do
-    task = Task.new(title: '', content: '失敗テスト', deadline: Date.today, status: '完成', priority: '高')
+    task = Task.new(title: '', content: '失敗テスト', deadline: Date.today, status: '完成', priority: '高', user_id: @user.id )
     expect(task).not_to be_valid
   end
 
   it 'titleが30文字以上ならバリデーションが通らない' do
-    task = Task.new(title: 'a'*31, content: '失敗テスト', deadline: Date.today, status: '完成', priority: '高')
+    task = Task.new(title: 'a'*31, content: '失敗テスト', deadline: Date.today, status: '完成', priority: '高', user_id: @user.id )
     expect(task).not_to be_valid
   end
 
   it 'contentが255文字以上ならバリデーションが通らない' do
-    task = Task.new(title: '失敗テスト', content: 'a'*256, deadline: Date.today, status: '完成', priority: '高')
+    task = Task.new(title: '失敗テスト', content: 'a'*256, deadline: Date.today, status: '完成', priority: '高', user_id: @user.id )
     expect(task).not_to be_valid
   end
 
   it 'contentが空ならバリデーションが通らない' do
-    task = Task.new(title: '失敗テスト', content: '', deadline: Date.today, status: '完成', priority: '高')
+    task = Task.new(title: '失敗テスト', content: '', deadline: Date.today, status: '完成', priority: '高', user_id: @user.id )
     expect(task).not_to be_valid
   end
 
   it 'deadlineが空ならバリデーションが通らない' do
-    task = Task.new(title: '失敗テスト', content: '失敗テスト', deadline: "", status: '完成', priority: '高')
+    task = Task.new(title: '失敗テスト', content: '失敗テスト', deadline: "", status: '完成', priority: '高', user_id: @user.id )
     expect(task).not_to be_valid
   end
 
   it 'statusが空ならバリデーションが通らない' do
-    task = Task.new(title: '失敗テスト', content: '失敗テスト', deadline: Date.today, status: '', priority: '高')
+    task = Task.new(title: '失敗テスト', content: '失敗テスト', deadline: Date.today, status: '', priority: '高', user_id: @user.id )
     expect(task).not_to be_valid
   end
 
   it 'priorityが空ならバリデーションが通らない' do
-    task = Task.new(title: '失敗テスト', content: '失敗テスト', deadline: Date.today, status: '完成', priority: '')
+    task = Task.new(title: '失敗テスト', content: '失敗テスト', deadline: Date.today, status: '完成', priority: '', user_id: @user.id )
     expect(task).not_to be_valid
   end
 
   it '全ての内容が記載されていればバリデーションが通る' do
-    task = Task.new(title: '失敗テスト', content: '失敗テスト', deadline: Date.today, status: '完成', priority: '高')
+    task = Task.new(title: '失敗テスト', content: '失敗テスト', deadline: Date.today, status: '完成', priority: '高', user_id: @user.id )
     expect(task).to be_valid
   end
 
@@ -58,15 +62,15 @@ RSpec.describe 'タスク管理機能', type: :model do
   end
 
   it 'タイトル検索で任意の文字を入力し、それに近いタスクのみを表示' do
-    @task = FactoryBot.create(:task)
-    @second_task = FactoryBot.create(:second_task)
+    @task = FactoryBot.create(:task, user_id: @user.id )
+    @second_task = FactoryBot.create(:second_task, user_id: @user2.id )
     expect(Task.title_search("second")).to include(@second_task)
     expect(Task.title_search("second")).to_not include(@task)
   end
 
   it 'ステータス検索で選択した値のみを表示' do
-    @task = FactoryBot.create(:task)
-    @second_task = FactoryBot.create(:second_task)
+    @task = FactoryBot.create(:task, user_id: @user.id )
+    @second_task = FactoryBot.create(:second_task, user_id: @user2.id )
     expect(Task.status_search("完了")).to include(@second_task)
     expect(Task.status_search("完了")).to_not include(@task)
   end

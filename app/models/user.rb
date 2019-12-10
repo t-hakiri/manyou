@@ -1,5 +1,6 @@
 class User < ApplicationRecord
-  has_many :tasks
+  before_destroy :last_user
+  has_many :tasks, dependent: :destroy
   before_validation { email.downcase! }
 
   has_secure_password
@@ -7,4 +8,11 @@ class User < ApplicationRecord
   validates :password, length: {minimum: 4}, on: :update, allow_blank: true
 
   validates :email, format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/ }
+  
+  def last_user
+    count = User.count
+    if count == 1
+    throw :abort
+    end
+  end
 end

@@ -55,7 +55,7 @@ header {
 
 table{
   margin: 0 auto;
-  width: 80rem;
+  width: 100rem;
   border-collapse:separate;
   border-spacing: 0;
   table-layout: fixed;
@@ -165,3 +165,14 @@ ul {
 .errors {
   margin: 0 auto;
 }
+
+
+
+
+
+
+
+
+
+
+

@@ -23,4 +23,13 @@ FactoryBot.define do
     priority { '高' }
     user_id { 2 }
   end
+
+factory :task3, class: Task do
+    title { 'task3' }
+    content { 'task3' }
+    deadline { Date.tomorrow }
+    status { '完了' }
+    priority { '高' }
+    user_id { 3 }
+  end
 end
