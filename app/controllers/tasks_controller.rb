@@ -22,7 +22,7 @@ class TasksController < ApplicationController
     elsif params[:task].present?
       @tasks = Task.title_search(params[:task][:title_search]).page(params[:page]).per(5) 
       @tasks = @tasks.status_search(params[:task][:status_search]).page(params[:page]).per(5) if params[:task][:status_search].present?
-      @tasks = @tasks.joins(:labels).where(labels: { id: params[:task][:label_id] }) if params[:task][:label_id].present?
+      @tasks = @tasks.joins(:labels).where(labels: { id: params[:task][:label_id] }).page(params[:page]).per(5) if params[:task][:label_id].present?
     elsif params[:sort_priority] == "true"
       @tasks = Task.all.sort_priority.page(params[:page]).per(5)
     end
@@ -69,12 +69,6 @@ class TasksController < ApplicationController
     params.require(:task).permit(:title, :content, :deadline, :priority, :status, { label_ids: [] } )
   end
 end
-
-
-
-# @tasks = @tasks.joins(:labels).where(labels: { id: params[:label_id] }) if params[:label_id].present?
-
-
 
 
 
