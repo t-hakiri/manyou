@@ -20,3 +20,6 @@ Task.create!(title: "user#{i +1 }",
              user_id: User.find(i + 1).id
              )
 end
+
+Label.create!(name: "仕事")
+Label.create!(name: "遊び")
