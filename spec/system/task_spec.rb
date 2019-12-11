@@ -5,7 +5,7 @@ RSpec.describe 'タスク管理機能', type: :system do
     # 「タスク一覧画面」や「タスク詳細画面」などそれぞれのテストケースで、before内のコードが実行される
     # 各テストで使用するタスクを1件作成する
     # 作成したタスクオブジェクトを各テストケースで呼び出せるようにインスタンス変数に代入
-    @label = FactoryBot.create(:label)
+    @label2 = FactoryBot.create(:label2)
     @user = FactoryBot.create(:user)
     @user2 = FactoryBot.create(:user2)
     @task = FactoryBot.create(:task, user_id: @user.id )
@@ -88,8 +88,17 @@ RSpec.describe 'タスク管理機能', type: :system do
       end
     end
 
-    context 'ラベルを新規作成して' do
+    context 'ラベルを付けて新規作成して' do
       it '一覧画面でラベル検索かけたとき' do
+
+        visit tasks_path
+        select '仕事', from: 'ラベル検索'
+        click_button '検索する'
+        expect(page).to have_content '仕事'
+      end
+    end
+    context 'タスク作成時' do
+      it 'ラベルを複数つけて登録できる' do
         visit new_task_path
         fill_in 'タイトル', with: 'label_test'      
         fill_in '内容', with: 'bbb'
@@ -99,15 +108,12 @@ RSpec.describe 'タスク管理機能', type: :system do
         select '完了', from: 'task_status'
         select '中', from: 'task_priority'
         check '仕事'
+        check '遊び'
         sleep 1
         click_button '登録する'
 
-        select '仕事', from: 'ラベル検索'
-        click_button '検索する'
-
-        sleep 3
-
         expect(page).to have_content '仕事'
+        expect(page).to have_content '遊び'
       end
     end
   end
@@ -148,6 +154,12 @@ RSpec.describe 'タスク管理機能', type: :system do
         visit task_path(@task)
         expect(page).to have_content @task.title
         expect(page).to have_content @task.content
+      end
+    end
+    context '任意のタスク詳細画面に遷移した場合' do
+      it 'ラベルが設定されていた場合は表示すること' do
+        visit task_path(@task)
+        expect(page).to have_content '仕事'
       end
     end
   end
