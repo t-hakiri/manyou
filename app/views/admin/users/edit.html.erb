@@ -1,0 +1,48 @@
+<h1>ユーザー情報の編集</h1>
+
+<%= form_with(model: @user, local: true, url: admin_user_path(@user)) do |form| %>
+  <div class="errors">
+    <% if @user.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+        <ul>
+        <% user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+  <ul class="field">
+    <li><%= form.label t('view.name') %></li>
+    <li><%= form.text_field :name %></li>
+  </ul>
+
+  <ul class="field">
+    <li><%= form.label t('view.email') %></li>
+    <li><%= form.text_field :email %></li>
+  </ul>
+
+  <ul class="field">
+    <li><%= form.label t('view.password') %></li>
+    <li><%= form.password_field :password %></li>
+  </ul>
+
+  <ul class="field">
+    <li><%= form.label t('view.password_confirmation') %></li>
+    <li><%= form.password_field :password_confirmation %></li>
+  </ul>
+
+  <ul class="field">
+    <li><%= form.label t('view.admin') %></li>
+    <li><%= form.select :admin, { true: "true", false: "false" } %></li>
+  </ul>
+
+  <ul class="actions">
+    <li><%= form.submit %></li>
+  </ul>
+<% end %>
+</div>
+
+<%= link_to '戻る', admin_users_path, class: "btn btn-info" %> 

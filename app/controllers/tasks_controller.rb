@@ -1,7 +1,14 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user, only: [:edit, :update, :index, :new]
 
   def toppage
+  end
+
+  def authenticate_user
+    unless logged_in?
+      redirect_to root_path, notice: 'ログインしてください'
+    end
   end
 
   def new
@@ -23,11 +30,13 @@ class TasksController < ApplicationController
   end
 
   def show
-    
+    if current_user.id != @task.user_id
+      redirect_to tasks_path, notice: 'あなたのタスクではありません。'
+    end
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
     if @task.save
       redirect_to tasks_path, notice: '登録完了'
     else
