@@ -37,7 +37,7 @@
   </ul>
 
   <ul class="field">
-  <li><%= form.collection_check_boxes(:label_ids, Label.all, :id, :name) %></li>
+  <li><%= form.collection_check_boxes :label_ids, Label.all, :id, :name %></li>
   </ul>
 
   <ul class="actions">
