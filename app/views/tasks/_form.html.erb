@@ -34,11 +34,14 @@
    <ul class="field">
     <li><%= form.label :priority %></li>
     <li><%= form.select :priority, Task.priorities.keys %>
+  </ul>
 
-       <%#= select :priority, :name, Task.priority.keys.to_a, include_blank: true %>
+  <ul class="field">
+  <li><%= form.collection_check_boxes :label_ids, Label.where('user_id = ? OR user_id IS NULL', current_user.id), :id, :name %></li>
   </ul>
 
   <ul class="actions">
     <li><%= form.submit %></li>
   </ul>
 <% end %>
+

@@ -65,21 +65,3 @@ class Admin::UsersController < ApplicationController
                                  :password_confirmation, :admin)
   end
 end
-
-
-
-
-
-  # def index
-  #   @tasks = Task.all.sorted.page(params[:page]).per(5)
-  #   if params[:sort_expired] == "true"
-  #     @tasks = Task.all.deadline_sort.page(params[:page]).per(5)
-  #   elsif params[:task].present?
-  #     @tasks = Task.title_search(params[:task][:title_search]).page(params[:page]).per(5)
-  #     if params[:task][:status_search].present?
-  #       @tasks = @tasks.status_search(params[:task][:status_search]).page(params[:page]).per(5)
-  #     end
-  #   elsif params[:sort_priority] == "true"
-  #     @tasks = Task.all.sort_priority.page(params[:page]).per(5)
-  #   en
-

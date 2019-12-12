@@ -11,6 +11,9 @@ FactoryBot.define do
     status { '未着手' }
     priority { '低' }
     user_id { 1 }
+    after(:create) do |task|
+      create(:labelling, task: task, label: create(:label))
+    end
   end
 
   # 作成するテストデータの名前を「second_task」とします

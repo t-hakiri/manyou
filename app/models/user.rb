@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   before_destroy :last_user
   has_many :tasks, dependent: :destroy
+  has_many :labels, dependent: :destroy
   before_validation { email.downcase! }
 
   has_secure_password

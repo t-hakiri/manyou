@@ -1,0 +1,5 @@
+<strong>ラベル名</strong>
+<h2><%= @label.name %></h2>
+
+<%= link_to '消す', label_path, method: :delete, data: { confirm: '本当に消しますか？' } %>
+
