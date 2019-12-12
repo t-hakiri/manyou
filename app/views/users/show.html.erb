@@ -4,5 +4,15 @@
 
 <p>タスク数: <%= @user.tasks.count %></p>
 
+<p>あなたのオリジナルラベル</p>
+<% @labels.where(user_id: current_user.id).each do |label| %>
+  <p class='badge badge-primary user_show_link'><%= link_to label.name, label_path(label) %></p>
+<% end %>
+<br>
+
+
+<%= link_to 'オリジナルラベルを作成する', new_label_path, class: 'btn btn-info' %>
+<br><br>
+
 <%= link_to '設定変更', edit_user_path(@user), class: 'btn btn-success' %> |
 <%= link_to '戻る', :back, class: 'btn btn-warning' %> 

@@ -23,6 +23,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    @labels = Label.all
     if current_user.id != @user.id
       redirect_to tasks_path, notice: 'あなたのアカウントではありません。'
     end

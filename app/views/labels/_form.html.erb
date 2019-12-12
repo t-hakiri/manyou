@@ -1,0 +1,24 @@
+<%= form_with(model: label, local: true ) do |form| %>
+  <div class="errors">
+    <% if label.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(label.errors.count, "error") %> prohibited this label from being saved:</h2>
+
+        <ul>
+        <% label.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+  <ul class="field">
+    <li><%= form.label t('view.name') %></li>
+    <li><%= form.text_field :name %></li>
+  </ul>
+
+  <ul class="actions">
+    <li><%= form.submit %></li>
+  </ul>
+<% end %>
+</div>

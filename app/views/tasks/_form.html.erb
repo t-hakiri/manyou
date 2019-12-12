@@ -37,10 +37,11 @@
   </ul>
 
   <ul class="field">
-  <li><%= form.collection_check_boxes :label_ids, Label.all, :id, :name %></li>
+  <li><%= form.collection_check_boxes :label_ids, Label.where('user_id = ? OR user_id IS NULL', current_user.id), :id, :name %></li>
   </ul>
 
   <ul class="actions">
     <li><%= form.submit %></li>
   </ul>
 <% end %>
+
